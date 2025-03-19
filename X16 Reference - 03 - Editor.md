@@ -390,17 +390,19 @@ The dead key table has one section for every dead key with the following layout:
 Custom layouts can be loaded from disk like this:
 
 ```BASIC
-BLOAD"KEYMAP",8,0,$A000
+BLOAD "KEYMAP", 8, 0, $A000
 ```
 
 Here is an example that activates a layout derived from "ABC/X16", with unshifted Y and Z swapped in PETSCII mode:
 
 ```BASIC
-100 KEYMAP"ABC/X16"                               :REM START WITH DEFAULT LAYOUT
-110 BANK 0                                        :REM ACTIVATE RAM BANK 0
-120 FORI=0TO11:B=$A000+128*I:IFPEEK(B)<>0THENNEXT :REM SEARCH FOR TABLE $00
-130 POKEB+$2E,ASC("Y")                            :REM SET KEYNUM $2E ('Z') to 'Y'
-140 POKEB+$16,ASC("Z")                            :REM SET KEYNUM $16 ('Y') to 'Z'
+100 KEYMAP "ABC/X16"                    :REM START WITH DEFAULT LAYOUT
+110 BANK 0                              :REM ACTIVATE RAM BANK 0
+120 FOR I = 0 TO 11                     :REM SEARCH FOR TABLE $00
+130 B = $A000 + 128 * I
+140 IF PEEK(B) <> 0 THEN NEXT           
+150 POKE B + $2E, ASC("Y")              :REM SET KEYNUM $2E ('Z') TO 'Y'
+160 POKE B + $16, ASC("Z")              :REM SET KEYNUM $16 ('Y') TO 'Z'
 170 REM
 180 REM *** DOING THE SAME FOR SHIFTED CHARACTERS
 190 REM *** IS LEFT AS AN EXERCISE TO THE READER
