@@ -328,8 +328,8 @@ All remaining keyboards are based on the respective Windows layouts. `EN-US/INT`
 The BASIC command `KEYMAP` allows activating a specific keyboard layout. It can be added to the auto-boot file, e.g.:
 
 ```basic
-10 KEYMAP"NB-NO"
-SAVE"AUTOBOOT.X16
+10 KEYMAP "NB-NO"
+SAVE "@:AUTOBOOT.X16"
 ```
 
 ### Loadable Keyboard Layouts
