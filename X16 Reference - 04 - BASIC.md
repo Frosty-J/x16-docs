@@ -219,10 +219,10 @@ There are several new statement and functions. Note that all BASIC keywords (suc
 **EXAMPLE of ASC Function:**
 
 ```BASIC
-?ASC("A")
+PRINT ASC("A")
  65
 
-?ASC("")
+PRINT ASC("")
  0
 ```
 
@@ -251,7 +251,7 @@ PRINT BIN$(45231) : REM PRINTS 1011000010101111 TO REPRESENT 16 BITS
 
 ```BASIC
 BANK 1,10    : REM SETS THE RAM BANK TO 1 AND THE ROM BANK TO 10
-?PEEK($A000) : REM PRINTS OUT THE VALUE STORED IN $A000 IN RAM BANK 1
+PRINT PEEK($A000) : REM PRINTS OUT THE VALUE STORED IN $A000 IN RAM BANK 1
 SYS $C063    : REM CALLS ROUTINE AT $C09F IN ROM BANK 10 AUDIO (YM_INIT)
 ```
 
@@ -271,10 +271,10 @@ Note: Memory address `$00`, which is the hardware RAM bank register, will usuall
 **EXAMPLE of BINPUT&#35; Statement:**
 
 ```BASIC
-10 OPEN 8,8,8,"FILE.BIN,S,R"
-20 BINPUT#8,A$,10
-30 PRINT "I GOT";LEN(A$);"BYTES"
-40 IF ST<>0 THEN 20
+10 OPEN 8,8,8, "FILE.BIN, S, R"
+20 BINPUT#8, A$, 10
+30 PRINT "I GOT"; LEN(A$); "BYTES"
+40 IF ST <> 0 THEN 20
 50 CLOSE 8
 ```
 
@@ -305,8 +305,11 @@ After a successful load, `$030D` and `$030E` will contain the address of the fin
 **EXAMPLES of BLOAD:**
 
 ```BASIC
-BLOAD "MYFILE.BIN",8,1,$A000:REM LOADS A FILE NAMED MYFILE.BIN FROM DEVICE 8 STARTING IN BANK 1 AT $A000.
-BLOAD "WHO.PCX",8,10,$B000:REM LOADS A FILE NAMED WHO.PCX INTO RAM STARTING IN BANK 10 AT $B000.
+REM LOADS A FILE NAMED MYFILE.BIN FROM DEVICE 8 STARTING IN BANK 1 AT $A000.
+BLOAD "MYFILE.BIN", 8, 1, $A000
+
+REM LOADS A FILE NAMED WHO.PCX INTO RAM STARTING IN BANK 10 AT $B000.
+BLOAD "WHO.PCX", 8, 10, $B000
 ```
 
 ### BSAVE
@@ -323,13 +326,13 @@ This command does not allow for automatic bank advancing, but you can achieve a 
 **EXAMPLES of BSAVE:**
 
 ```BASIC
-BSAVE "MYFILE.BIN",8,1,$A000,$C000
+BSAVE "MYFILE.BIN", 8,1, $A000,$C000
 ```
 
 The above example saves a region of memory from $A000 in bank 1 through and including $BFFF, stopping before $C000.
 
 ```BASIC
-BSAVE "MYFILE.BIN,S,A",8,2,$A000,$B000
+BSAVE "MYFILE.BIN, S, A", 8,2, $A000,$B000
 ```
 
 The above example appends a region of memory from $A000 through and including $AFFF, stopping before $B000.  Running both of the above examples in succession will result in a file MYFILE.BIN 12KiB in size.
